@@ -157,7 +157,7 @@ def main():
     logging.info('Signing in at: https://'+ domain + '.salesforce.com')
     logging.info('Output directory: ' + output)
 
-    # Connect
+    # Connect - https://pypi.org/project/simple-salesforce/
     sf = Salesforce(username=username, password=password, security_token=token, domain=domain)
     logging.debug("Connected successfully to {0}".format(sf.sf_instance))
 
