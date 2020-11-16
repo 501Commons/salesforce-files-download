@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "-q 'a1o3u000002ZSn3AAG','a1o3u000002ZSn4AAG'",
+                "-oC:\\repo\\Salesforce-Exporter-Private\\Clients\\II\\Salesforce-Exporter\\Clients\\II\\Export\\"
+            ],
+        }
+    ]
+}

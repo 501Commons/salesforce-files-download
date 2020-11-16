@@ -30,7 +30,7 @@ def create_filename(title, file_extension, content_document_id, output_directory
         clean_title = filter(lambda i: i not in bad_chars, title)
         clean_title = ''.join(list(clean_title))
 
-    filename = "{0}{1} {2}.{3}".format(output_directory, content_document_id, clean_title, file_extension)
+    filename = "{0}{1}{2}.{3}".format(output_directory, content_document_id, clean_title, file_extension)
     return filename
 
 
@@ -44,7 +44,8 @@ def get_content_document_ids(sf, output_directory, query):
     content_documents = sf.query_all(query)
 
     # Save results file with file mapping and return ids
-    with open(results_path, 'w', encoding='UTF-8', newline='') as results_csv:
+#    with open(results_path, 'w', encoding='UTF-8', newline='') as results_csv:
+    with open(results_path, 'w') as results_csv:
         filewriter = csv.writer(results_csv, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow(['FirstPublicationId','FirstPublicationName', 'ContentDocumentId', 'Title','VersionData','PathOnClient'])
 
@@ -52,7 +53,8 @@ def get_content_document_ids(sf, output_directory, query):
             content_document_ids.add(content_document["ContentDocumentId"])
             filename = create_filename(content_document["ContentDocument"]["Title"],
                                        content_document["ContentDocument"]["FileExtension"],
-                                       content_document["ContentDocumentId"],
+                                       #content_document["ContentDocumentId"],
+                                       '',
                                        output_directory)
 
             filewriter.writerow(
@@ -64,7 +66,8 @@ def get_content_document_ids(sf, output_directory, query):
 
 def download_file(args):
     record, output_directory, sf = args
-    filename = create_filename(record["Title"], record["FileExtension"], record["ContentDocumentId"], output_directory)
+#    filename = create_filename(record["Title"], record["FileExtension"], record["ContentDocumentId"], output_directory)
+    filename = create_filename(record["Title"], record["FileExtension"], '', output_directory)
     url = "https://%s%s" % (sf.sf_instance, record["VersionData"])
 
     logging.debug("Downloading from " + url)
@@ -112,6 +115,8 @@ def main():
     parser = argparse.ArgumentParser(description='Export ContentVersion (Files) from Salesforce')
     parser.add_argument('-q', '--query', metavar='query', required=True,
                         help='SOQL to limit the valid ContentDocumentIds. Must return the Ids of parent objects.')
+    parser.add_argument('-o', '--outputdir', metavar='outputdir', required=True,
+                        help='Output directory for writing extracted files.')
     args = parser.parse_args()
 
     # Get settings from config file
@@ -136,7 +141,10 @@ def main():
     content_document_query = 'SELECT ContentDocumentId, LinkedEntityId, LinkedEntity.Name, ContentDocument.Title, ' \
                              'ContentDocument.FileExtension FROM ContentDocumentLink ' \
                              'WHERE LinkedEntityId in ({0})'.format(args.query)
-    output = config['salesforce']['output_dir']
+    
+    #output = config['salesforce']['output_dir']
+    output = args.outputdir
+    
     query = "SELECT ContentDocumentId, Title, VersionData, FileExtension FROM ContentVersion " \
             "WHERE IsLatest = True AND FileExtension != 'snote'"
 
