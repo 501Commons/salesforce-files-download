@@ -123,7 +123,7 @@ def main():
 
     # Get settings from config file
     config = configparser.ConfigParser(allow_no_value=True)
-    config.read('download-' + args.type + '.ini')
+    config.read('download-' + args.type.strip() + '.ini')
 
     username = config['salesforce']['username']
     password = config['salesforce']['password']
@@ -142,10 +142,10 @@ def main():
 
     content_document_query = 'SELECT ContentDocumentId, LinkedEntityId, LinkedEntity.Name, ContentDocument.Title, ' \
                              'ContentDocument.FileExtension FROM ContentDocumentLink ' \
-                             'WHERE LinkedEntityId in ({0})'.format(args.query)
+                             'WHERE LinkedEntityId in ({0})'.format(args.query.strip())
     
     #output = config['salesforce']['output_dir']
-    output = args.outputdir
+    output = args.outputdir.strip()
     
     query = "SELECT ContentDocumentId, Title, VersionData, FileExtension FROM ContentVersion " \
             "WHERE IsLatest = True AND FileExtension != 'snote'"
