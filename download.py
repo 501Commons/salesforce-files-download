@@ -1,10 +1,10 @@
 import concurrent.futures
-from simple_salesforce import Salesforce
 import requests
 import os
 import csv
 import re
 import logging
+from simple_salesforce import Salesforce
 
 def split_into_batches(items, batch_size):
     full_list = list(items)

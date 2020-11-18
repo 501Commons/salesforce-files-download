@@ -11,9 +11,12 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "args": [
-                "-q 'a1j3h000000HRnaAAG'",
-                "-oC:\\repo\\Salesforce-Exporter-Private\\Clients\\IISC\\Salesforce-Exporter\\Clients\\IISC\\Export\\",
-                "-tIISC"
+                "-q",
+                "'a1j3h000000HRnaAAG'",
+                "-o",
+                "C:\\repo\\Salesforce-Exporter-Private\\Clients\\IISC\\Salesforce-Exporter\\Clients\\IISC\\Export\\",
+                "-t",
+                "IISC"
             ],
         }
     ]
