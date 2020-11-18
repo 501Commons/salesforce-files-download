@@ -117,11 +117,13 @@ def main():
                         help='SOQL to limit the valid ContentDocumentIds. Must return the Ids of parent objects.')
     parser.add_argument('-o', '--outputdir', metavar='outputdir', required=True,
                         help='Output directory for writing extracted files.')
+    parser.add_argument('-t', '--type', metavar='type', required=True,
+                        help='Type for download.')
     args = parser.parse_args()
 
     # Get settings from config file
     config = configparser.ConfigParser(allow_no_value=True)
-    config.read('download.ini')
+    config.read('download-' + args.type + '.ini')
 
     username = config['salesforce']['username']
     password = config['salesforce']['password']
