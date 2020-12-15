@@ -14,9 +14,9 @@
                 "-q",
                 "'a1j3h000000HRnaAAG'",
                 "-o",
-                "C:\\repo\\Salesforce-Exporter-Private\\Clients\\IISC\\Salesforce-Exporter\\Clients\\IISC\\Export\\",
+                "C:\\repo\\Salesforce-Exporter-Private\\Clients\\II\\Salesforce-Exporter\\Clients\\II\\Export\\",
                 "-t",
-                "IISC"
+                "II"
             ],
         }
     ]
